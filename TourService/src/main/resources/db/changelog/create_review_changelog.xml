@@ -1,0 +1,49 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-review-table" author="NguyenVanLoc2002">
+        <createTable tableName="review">
+            <column name="rew_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="cus_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tour_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rating" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content_comment" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="review_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="review"
+                                 baseColumnNames="tour_id"
+                                 referencedTableName="tours"
+                                 referencedColumnNames="tour_id"
+                                 constraintName="fk_review_customer"/>
+
+        <!-- Add foreign key if cus_id references a customer table -->
+<!--        <addForeignKeyConstraint-->
+<!--                baseTableName="review"-->
+<!--                baseColumnNames="cus_id"-->
+<!--                referencedTableName="customer"-->
+<!--                referencedColumnNames="cus_id"-->
+<!--                constraintName="fk_review_customer"/>-->
+    </changeSet>
+
+    <changeSet id="modify_content_comment_table_review" author="NguyenVanLoc2002">
+        <sqlFile path="db/sql/table-review-init.sql"/>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,35 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ChangeSet để tạo bảng tour_note -->
+    <changeSet id="create-tour_note" author="NguyenVanLoc2002">
+        <createTable tableName="tour_note">
+            <column name="note_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="tour_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price_detail_of_children" type="TEXT"/>
+            <column name="regulation" type="TEXT"/>
+            <column name="notes" type="TEXT"/>
+        </createTable>
+
+        <!-- Nếu có bảng tours và muốn tạo khóa ngoại cho tourId -->
+        <addForeignKeyConstraint baseTableName="tour_note"
+                                 baseColumnNames="tour_id"
+                                 referencedTableName="tours"
+                                 referencedColumnNames="tour_id"
+                                 constraintName="fk_tour_note_tours"/>
+    </changeSet>
+
+
+    <changeSet id="table-tour_note-init" author="NguyenVanLoc2002">
+        <sqlFile path="db/sql/table-tour_note-init.sql"/>
+    </changeSet>
+
+
+</databaseChangeLog>

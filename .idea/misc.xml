@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/ApiGateway" />
+    <file type="web" url="file://$PROJECT_DIR$/AuthService" />
+    <file type="web" url="file://$PROJECT_DIR$/CommonService" />
+    <file type="web" url="file://$PROJECT_DIR$/ConfigurationService" />
+    <file type="web" url="file://$PROJECT_DIR$/DiscoveryService" />
+    <file type="web" url="file://$PROJECT_DIR$/NotificationService" />
+    <file type="web" url="file://$PROJECT_DIR$/PaymentService" />
+    <file type="web" url="file://$PROJECT_DIR$/RecommendationService" />
+    <file type="web" url="file://$PROJECT_DIR$/TourService" />
+    <file type="web" url="file://$PROJECT_DIR$/UserService" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

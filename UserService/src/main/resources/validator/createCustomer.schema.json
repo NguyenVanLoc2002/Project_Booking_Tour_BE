@@ -1,0 +1,46 @@
+{
+  "$id": "http://fit.com/createCustomer.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Validate create customer request",
+  "description": "Create new Customer",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "minLength": 1,
+      "description": "Customer's email address"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "([A-Za-z])",
+      "description": "Customer's full name"
+    },
+    "address": {
+      "type": ["string", "null"],
+      "description": "Customer's address"
+    },
+    "gender": {
+      "type": "boolean",
+      "description": "Customer's gender: true for male, false for female"
+    },
+    "dateOfBirth": {
+      "type": "string",
+      "format": "date",
+      "description": "Customer's birth date in YYYY-MM-DD format"
+    },
+    "phoneNumber": {
+      "type": ["string", "null"],
+      "pattern": "^(\\d{10,11}|)$",
+      "description": "Customer's phone number with 10 or 11 digits"
+    }
+  },
+  "required": [
+    "email",
+    "name",
+    "gender",
+    "dateOfBirth"
+  ]
+}

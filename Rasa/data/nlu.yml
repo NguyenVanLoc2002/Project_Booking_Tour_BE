@@ -1,0 +1,69 @@
+version: "3.1"
+nlu:
+  - intent: greet
+    examples: |
+      - Chào bạn
+      - Xin chào
+      - Hello
+      - Chào
+      - Chào buổi sáng
+      - Chào buổi tối
+      - Chào bạn nhé
+      - Chào anh/chị
+      - Xin chào bạn
+      - Chào mừng bạn
+
+  - intent: goodbye
+    examples: |
+      - tạm biệt
+      - chào tạm biệt
+      - hẹn gặp lại
+      - tạm biệt bạn
+      - see you
+      - bye bye
+      - gặp lại sau
+      - chúc bạn một ngày tốt lành
+
+  - intent: ask_tour_northern
+    examples: |
+      - Giới thiệu các tour miền Bắc
+      - Tôi muốn biết về tour miền Bắc
+      - Bạn có thể giới thiệu tour ở miền Bắc không?
+
+  - intent: ask_tour_central
+    examples: |
+      - Giới thiệu các tour miền Trung
+      - Tôi muốn tìm hiểu tour miền Trung
+      - Tour ở miền Trung có những gì?
+      - Hiện tại có tour nào ở miền Trung?
+  
+  - intent: ask_tour_south
+    examples: |
+      - Giới thiệu các tour miền Nam
+      - Tôi muốn tìm hiểu tour miền Nam
+      - Tour ở miền Nam có những gì?
+      - Hiện tại có tour nào ở miền Nam?
+
+  - intent: ask_book_tour
+    examples: |
+      - Tôi muốn đặt tour miền Bắc
+      - Làm sao để đặt tour ?
+      - Các bước để thực hiện đặt tour?
+
+  - intent: ask_payment_methods
+    examples: |
+      - Tôi có thể thanh toán tour bằng cách nào?
+      - Các phương thức thanh toán cho tour là gì?
+      - Tôi có thể trả tiền khi nào khi đặt tour?
+
+  - intent: ask_cancellation_policy
+    examples: |
+      - Nếu tôi muốn hủy tour thì có mất phí không?
+      - Chính sách hủy tour của bạn như thế nào?
+      - Tôi có thể hoàn tiền nếu không đi tour được không?
+
+  - intent: ask_booking_status
+    examples: |
+    - Tôi đã đặt tour rồi, làm sao để kiểm tra tình trạng?
+    - Bạn có thể cập nhật thông tin về tour đã đặt không?
+

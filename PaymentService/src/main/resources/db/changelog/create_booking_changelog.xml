@@ -1,0 +1,75 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ChangeSet để tạo bảng booking -->
+    <changeSet id="create-booking-table" author="your_name">
+        <createTable tableName="booking">
+            <column name="booking_id" type="VARCHAR(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="tour_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ticket_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="booking_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status_booking" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_amount" type="DECIMAL(10, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adults" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="children" type="INT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="toddlers" type="INT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="infants" type="INT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="customer_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="user_name" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="phone_number" type="VARCHAR(20)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="city" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="district" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="ward" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="address" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="table-booking-init" author="NguyenVanLoc2002">
+        <sqlFile path="db/sql/table-booking-init.sql"/>
+    </changeSet>
+
+
+</databaseChangeLog>

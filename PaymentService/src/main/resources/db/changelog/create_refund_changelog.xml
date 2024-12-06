@@ -1,0 +1,38 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!-- ChangeSet để tạo bảng refunds -->
+    <changeSet id="create-refunds" author="NguyenVanLoc2002">
+        <createTable tableName="refunds">
+            <column name="re_id" type="VARCHAR(50)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="payment_id" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_id" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="refund_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="DECIMAL(20, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_refund" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="refunds"
+                baseColumnNames="payment_id"
+                referencedTableName="payments"
+                referencedColumnNames="payment_id"
+                constraintName="fk_refund_payment"/>
+    </changeSet>
+</databaseChangeLog>

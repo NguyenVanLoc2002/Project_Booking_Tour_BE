@@ -1,0 +1,16 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <!--include -->
+    <include file="db/changelog/create_tour_changelog.xml"/>
+    <include file="db/changelog/create_itineraries_changelog.xml"/>
+    <include file="db/changelog/create_tour_feature_changelog.xml"/>
+    <include file="db/changelog/create_tour_note_changelog.xml"/>
+    <include file="db/changelog/create_tour_service_changelog.xml"/>
+    <include file="/db/changelog/create_review_changelog.xml"/>
+    <include file="/db/changelog/create_tour_ticket_changelog.xml"/>
+</databaseChangeLog>

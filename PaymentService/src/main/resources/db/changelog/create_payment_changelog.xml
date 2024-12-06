@@ -1,0 +1,62 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!-- ChangeSet để tạo bảng payments -->
+    <changeSet id="create-payments" author="NguyenVanLoc2002">
+        <createTable tableName="payments">
+            <column name="payment_id" type="VARCHAR(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="booking_id" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="transaction_id" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount_id" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="amount" type="DECIMAL(20, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_method" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_reference" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="transaction_fee" type="DECIMAL(20, 2)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="created_date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_date" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="payments"
+                baseColumnNames="booking_id"
+                referencedTableName="booking"
+                referencedColumnNames="booking_id"
+                constraintName="fk_payment_booking"/>
+        <addForeignKeyConstraint
+                baseTableName="payments"
+                baseColumnNames="discount_id"
+                referencedTableName="discounts"
+                referencedColumnNames="discount_id"
+                constraintName="fk_payment_discount"/>
+    </changeSet>
+</databaseChangeLog>

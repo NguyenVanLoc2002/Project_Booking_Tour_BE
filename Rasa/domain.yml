@@ -1,0 +1,68 @@
+version: "3.1"
+intents:
+  - greet
+  - goodbye
+  - ask_tour_northern
+  - ask_tour_central
+  - ask_tour_south
+  - ask_book_tour
+  - ask_cancellation_policy
+  - ask_payment_methods
+
+actions:
+  - action_show_northern_tours
+  - action_show_central_tours
+  - action_show_south_tours
+  - action_default_fallback
+
+responses:
+  utter_greet:
+    - text: "Chào bạn! Tôi có thể giúp gì cho bạn?"
+    - text: "Chào mừng bạn! Bạn cần hỗ trợ gì?"
+    - text: "Hello! Tôi có thể tư vấn gì cho bạn không?"
+  utter_goodbye:
+    - text: "Tạm biệt! Hẹn gặp lại bạn."
+    - text: "Chúc bạn một ngày tuyệt vời! Tạm biệt."
+    - text: "Hẹn gặp lại! Mong sớm được phục vụ bạn."
+    - text: "Chào tạm biệt, hy vọng sẽ được gặp lại bạn trong tương lai!"
+    - text: "Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi. Tạm biệt!"
+  utter_ask_book_tour:
+    - text: |
+        Để đặt tour, bạn thực hiện các bước sau:
+        1. Chọn tour muốn đặt.
+        2. Chọn vé tour.
+        3. Nhập thông tin cá nhân và số lượng vé.
+        4. Ấn "Đặt tour".
+        5. Xác nhận email thông báo đặt tour.
+        6. Thanh toán.
+  utter_ask_cancellation_policy:
+  - text: |
+      Quy định hủy vé, hoàn tiền:
+      - **Quy định hủy đối với ngày lễ, tết:**
+        - Ngay sau khi đặt cọc hoặc thanh toán hoặc trước 10 ngày, nếu hủy mất 50% giá tour + 100% tiền vé máy bay.
+        - Hủy từ 03-09 ngày trước ngày khởi hành: chịu phí 75% giá tour + 100% tiền vé máy bay.
+        - Hủy trước 02 ngày, ngay ngày khởi hành hoặc đến trễ giờ khởi hành: chịu phí 100% giá tour + 100% tiền vé máy bay.
+      - **Quy định hủy đối với ngày thường:**
+        - Ngay sau khi đặt cọc hoặc thanh toán hoặc trước 10 ngày, nếu hủy mất 25% giá tour + 100% tiền vé máy bay.
+        - Hủy từ 05-09 ngày trước ngày khởi hành: chịu phí 50% giá tour + 100% tiền vé máy bay.
+        - Hủy từ 02-04 ngày trước ngày khởi hành: chịu phí 75% giá tour + 100% tiền vé máy bay.
+        - Hủy trước 01 ngày, ngay ngày khởi hành hoặc đến trễ giờ khởi hành: chịu phí 100% giá tour + 100% tiền vé máy bay.
+      - **Lưu ý:**
+        - Việc huỷ bỏ chuyến đi trên trang web thì người dùng phải xác nhận lại qua email. Nếu quý khách không xác nhận lại qua email chúng tôi đã gửi hoặc hủy bỏ bằng điện thoại thì không được chấp nhận hủy tour.
+      - **Trong những trường hợp bất khả kháng** (khủng bố, bạo động, thiên tai, lũ lụt…):
+        - Tuỳ theo tình hình thực tế và sự thuận tiện, an toàn của khách hàng, công ty VietNam Travel sẽ chủ động thông báo cho khách hàng sự thay đổi như sau: huỷ hoặc thay thế bằng một chương trình mới với chi phí tương đương chương trình tham quan trước đó. Trong trường hợp chương trình mới có phát sinh thì Khách hàng sẽ thanh toán khoản phát sinh này.
+        - Tuy nhiên, mỗi bên có trách nhiệm cố gắng tối đa, giúp đỡ bên bị thiệt hại nhằm giảm thiểu các tổn thất gây ra vì lý do bất khả kháng.
+      - **Đối với sự thay đổi lịch trình, giờ bay do lỗi của hãng hàng không, tàu hoả, tàu thuỷ:**
+        - VietNam Travel sẽ không chịu trách nhiệm bất kỳ phát sinh nào do lỗi trên như: phát sinh bữa ăn, nhà hàng, khách sạn, phương tiện di chuyển, hướng dẫn viên,…
+
+  utter_ask_payment_methods:
+  - text: |
+      Chúng tôi chấp nhận các phương thức thanh toán sau:
+      - Thanh toán trực tuyến qua thẻ tín dụng (Visa, Mastercard, JCB, Paypal)
+      - Thanh toán trực tiếp tại văn phòng của chúng tôi
+  utter_default:
+    - text: "Xin lỗi, tôi không hiểu câu hỏi của bạn. Vui lòng thử lại."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

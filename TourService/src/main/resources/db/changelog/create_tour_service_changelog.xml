@@ -1,0 +1,36 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ChangeSet để tạo bảng tour_service -->
+    <changeSet id="create-tour_service" author="NguyenVanLoc2002">
+        <createTable tableName="tour_service">
+            <column name="service_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="tour_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="included_service" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="excluded_service" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <!-- Nếu có bảng tours và muốn tạo khóa ngoại cho tourId -->
+        <addForeignKeyConstraint baseTableName="tour_service"
+                                 baseColumnNames="tour_id"
+                                 referencedTableName="tours"
+                                 referencedColumnNames="tour_id"
+                                 constraintName="fk_tour_service_tours"/>
+    </changeSet>
+
+    <changeSet id="table-service_tour-init" author="NguyenVanLoc2002">
+        <sqlFile path="db/sql/table-service_tour-init.sql"/>
+    </changeSet>
+
+</databaseChangeLog>

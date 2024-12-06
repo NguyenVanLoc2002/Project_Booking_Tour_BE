@@ -1,0 +1,37 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create-tour-tickets" author="NguyenVanLoc2002">
+        <createTable tableName="tour_tickets">
+            <column name="ticket_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="tour_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="departure_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="departure_location" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="available_slot" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="tour_tickets"
+                                 baseColumnNames="tour_id"
+                                 referencedTableName="tours"
+                                 referencedColumnNames="tour_id"
+                                 constraintName="fk_tour_ticket_tour"/>
+    </changeSet>
+
+    <changeSet id="table-ticket-init" author="NguyenVanLoc2002">
+        <sqlFile path="db/sql/table-ticket-init.sql"/>
+    </changeSet>
+
+</databaseChangeLog>

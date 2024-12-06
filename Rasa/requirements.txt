@@ -1,0 +1,7 @@
+rasa==3.6.20
+requests
+rasa-sdk==3.6.2
+SQLAlchemy<2.0
+langdetect
+transformers
+#torch

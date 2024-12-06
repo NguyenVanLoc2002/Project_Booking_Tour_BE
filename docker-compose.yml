@@ -1,0 +1,309 @@
+version: '3'
+services:
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    environment:
+      - STORAGE_TYPE=mem
+    restart: always
+    networks:
+      - gateway
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.4
+    container_name: zookeeper
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"  # Cổng trên máy host đồng bộ với cổng nội bộ container
+    networks:
+      - kafka-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.4
+    container_name: kafka
+    restart: always
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"   # Kết nối nội bộ Docker
+      - "29092:29092" # Kết nối từ bên ngoài
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      AUTO_CREATE_TOPICS_ENABLE: "true"
+    networks:
+      - kafka-network
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - kafka-network
+
+  config-server:
+    build:
+      context: ConfigurationService
+      dockerfile: Dockerfile
+    container_name: config-server
+    image: config-server:1.0
+    restart: always
+    ports:
+      - "8888:8888"
+
+
+  discovery-server:
+    build:
+      context: DiscoveryService
+      dockerfile: Dockerfile
+    container_name: discovery-server
+    image: discovery-server:1.0
+    ports:
+      - "8761:8761"
+    restart: always
+    depends_on:
+      - zipkin
+      - config-server
+    networks:
+      - gateway
+
+
+  redis:
+    image: redis:latest
+    container_name: redis-container
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./Environments/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis-data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    networks:
+      - gateway
+      - kafka-network
+
+  api_gateway:
+    build:
+      context: ApiGateway
+      dockerfile: Dockerfile
+    container_name: api_gateway
+    image: api_gateway:1.0
+    ports:
+      - "8000:8000"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - Environments/apigateway.env
+    restart: on-failure
+    depends_on:
+      - zipkin
+      - config-server
+      - discovery-server
+    networks:
+      - gateway
+
+
+
+      # ================================== Authenticate-DB & AuthService ==================================
+
+  AuthenticateService:
+    build:
+      context: AuthService
+      dockerfile: Dockerfile
+    container_name: Authenticate_Service
+    image: authenticate-service:1.0
+    ports:
+      - "9002:9002"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - Environments/authentication.env
+    restart: always
+    depends_on:
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+      - kafka
+    networks:
+      - gateway
+      - kafka-network
+
+  # ================================== USER-DB & UserService ==================================
+
+  UserService:
+    build:
+      context: UserService
+      dockerfile: Dockerfile
+    container_name: User_Service
+    image: user-service:1.0
+    ports:
+      - "9001:9001"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - Environments/user.env
+    restart: always
+    depends_on:
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+      - kafka
+      - AuthenticateService
+    networks:
+      - gateway
+      - kafka-network
+  # ================================== Tour-DB & TourService ==================================
+
+  TourService:
+    build:
+      context: TourService
+      dockerfile: Dockerfile
+    container_name: Tour_Service
+    image: tour-service:1.0
+    ports:
+      - "9003:9003"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - Environments/tour.env
+    restart: always
+    depends_on:
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+      - kafka
+    networks:
+      - gateway
+      - kafka-network
+
+  # ================================== Tour-DB & TourService ==================================
+
+  RecommendationService:
+    build:
+      context: RecommendationService
+      dockerfile: Dockerfile
+    container_name: Recommendation_Service
+    image: recommendation-service:1.0
+    ports:
+      - "9004:9004"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - Environments/recommendation.env
+    restart: always
+    depends_on:
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+    networks:
+      - gateway
+      - kafka-network
+
+  # ================================== Payment-DB & PaymentService ==================================
+
+  PaymentService:
+    build:
+      context: PaymentService
+      dockerfile: Dockerfile
+    container_name: Payment_Service
+    image: payment-service:1.0
+    ports:
+      - "9005:9005"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - Environments/payment.env
+    restart: always
+    depends_on:
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+      - kafka
+    networks:
+      - gateway
+      - kafka-network
+
+  # ================================== Notification-DB & NotificationService ==================================
+
+  NotificationService:
+    build:
+      context: NotificationService
+      dockerfile: Dockerfile
+    container_name: NotificationService_Service
+    image: notification-service:1.0
+    ports:
+      - "9008:9008"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - Environments/notification.env
+    restart: always
+    depends_on:
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+      - kafka
+    networks:
+      - gateway
+      - kafka-network
+
+
+
+  # ================================== Rasa For chat bot AI ==================================
+  rasa:
+    build:
+      context: ./Rasa  # Đảm bảo đường dẫn đúng tới thư mục chứa Dockerfile
+    container_name: rasa
+    ports:
+      - "5005:5005"  # Cổng cho API Rasa
+    environment:
+      - PYTHONUNBUFFERED=1  # Đảm bảo log được hiển thị ngay lập tức
+      - RASA_MODEL_SERVER=localhost:5002  # Ví dụ biến môi trường
+      - RUN_ACTION_SERVER=false
+    volumes:
+      - ./Rasa/data:/app/data  # Gắn kết thư mục chứa dữ liệu huấn luyện
+      - ./Rasa/actions:/app/actions  # Gắn kết thư mục chứa actions
+    networks:
+      - gateway
+
+  action_server:
+    build:
+      context: ./Rasa  # Đảm bảo đường dẫn đúng tới thư mục chứa Dockerfile
+    container_name: action_server
+    ports:
+      - "5055:5055"  # Cổng cho Action Server
+    environment:
+      - PYTHONUNBUFFERED=1
+      - RUN_ACTION_SERVER=true  # Chạy Action Server
+    volumes:
+      - ./Rasa/actions:/app/actions  # Gắn kết thư mục chứa actions
+    networks:
+      - gateway
+
+networks:
+  gateway:
+    driver: bridge
+  kafka-network:
+    driver: bridge

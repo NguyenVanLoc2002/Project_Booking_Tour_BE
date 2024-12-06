@@ -1,0 +1,49 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+
+    <changeSet id="create-customer_preferences" author="NguyenVanLoc2002">
+        <createTable tableName="customer_preferences">
+            <column name="pre_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="cus_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="DOUBLE PRECISION">
+                <constraints nullable="true"/>
+            </column>
+            <column name="max_duration" type="INT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="start_date" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="type_tour" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="region" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="accommodation_quality" type="VARCHAR(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="transportation_mode" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="departure_location" type="VARCHAR(100)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--    Thêm 10 data-->
+    <changeSet id="table-customer_preferences-init" author="NguyenVanLoc2002">
+        <sqlFile path="db/sql/table-customer-preference-init.sql"/>
+    </changeSet>
+
+
+</databaseChangeLog>

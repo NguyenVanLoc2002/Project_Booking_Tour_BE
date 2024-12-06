@@ -1,0 +1,80 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ChangeSet để tạo bảng users -->
+    <changeSet id="create-user" author="NguyenVanLoc2002">
+        <createTable tableName="users">
+            <column name="user_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="full_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="registration_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ChangeSet để tạo bảng customers -->
+    <changeSet id="create-customer" author="NguyenVanLoc2002">
+        <createTable tableName="customers">
+            <column name="user_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="address" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="gender" type="boolean"/>
+            <column name="date_of_birth" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(20)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ChangeSet để thêm khóa ngoại sau khi tạo bảng customers -->
+    <changeSet id="add-fk-customers-user" author="NguyenVanLoc2002">
+        <addForeignKeyConstraint baseTableName="customers"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_customers_users"
+                                 referencedTableName="users"
+                                 referencedColumnNames="user_id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+    <!-- ChangeSet để tạo bảng admins -->
+    <changeSet id="create-admin" author="NguyenVanLoc2002">
+        <createTable tableName="admins">
+            <column name="user_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="permission" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ChangeSet để thêm khóa ngoại sau khi tạo bảng admins -->
+    <changeSet id="add-fk-admins-user" author="NguyenVanLoc2002">
+        <addForeignKeyConstraint baseTableName="admins"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_admins_users"
+                                 referencedTableName="users"
+                                 referencedColumnNames="user_id"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+    <!--include -->
+    <include file="db/changelog/user-changelog-init.xml"/>
+    <include file="db/changelog/customer-changelog-init.xml"/>
+    <include file="db/changelog/admin-changelog-init.xml"/>
+</databaseChangeLog>

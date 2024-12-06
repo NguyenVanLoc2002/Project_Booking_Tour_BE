@@ -1,0 +1,34 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- ChangeSet để tạo bảng itineraries -->
+    <changeSet id="create-itineraries" author="NguyenVanLoc2002">
+        <createTable tableName="itineraries">
+            <column name="itiner_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="tour_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="day_number" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="temperature" type="FLOAT"/>
+            <column name="weather_condition" type="VARCHAR(25)"/>
+            <column name="activity" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
+    <!--    Thêm 10 data-->
+    <changeSet id="table-itineraries-init" author="NguyenVanLoc2002">
+        <sqlFile path="db/sql/table-itineraries-init.sql"/>
+    </changeSet>
+
+</databaseChangeLog>
