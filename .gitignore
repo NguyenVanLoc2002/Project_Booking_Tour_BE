@@ -1,0 +1,6 @@
+# Loại trừ thư mục build/ và tất cả file trong đó
+/build/*
+
+# Bao gồm tất cả các thư mục libs và các file .jar trong đó
+!*/build/libs/
+!*/build/libs/*.jar
