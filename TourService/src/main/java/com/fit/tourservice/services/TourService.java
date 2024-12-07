@@ -1,6 +1,5 @@
 package com.fit.tourservice.services;
 
-import com.fit.commonservice.utils.Constant;
 import com.fit.tourservice.dtos.request.TourFilterCriteriaRequest;
 import com.fit.tourservice.dtos.TourDTO;
 import com.fit.tourservice.dtos.TourFeatureDTO;
@@ -13,6 +12,7 @@ import com.fit.tourservice.models.TourFeature;
 import com.fit.tourservice.repositories.r2dbc.TourFeatureRepository;
 import com.fit.tourservice.repositories.r2dbc.TourRepository;
 import com.fit.tourservice.repositories.r2dbc.TourTicketRepository;
+import com.fit.tourservice.utils.Constant;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

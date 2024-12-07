@@ -1,6 +1,5 @@
 package com.fit.recommendationservice.services;
 
-import com.fit.commonservice.utils.Constant;
 import com.fit.recommendationservice.dtos.request.CustomerPreferencesRequest;
 import com.fit.recommendationservice.dtos.request.TourFilterCriteriaRequest;
 import com.fit.recommendationservice.dtos.response.CustomerPreferencesDTO;
@@ -8,19 +7,13 @@ import com.fit.recommendationservice.enums.AccommodationQuality;
 import com.fit.recommendationservice.enums.Region;
 import com.fit.recommendationservice.enums.TransportationMode;
 import com.fit.recommendationservice.enums.TypeTour;
-import com.fit.recommendationservice.events.EventProducer;
-import com.fit.recommendationservice.models.CustomerPreferences;
 import com.fit.recommendationservice.repositories.CustomerPreferencesRepository;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @Slf4j

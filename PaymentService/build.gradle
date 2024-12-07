@@ -42,12 +42,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
     implementation 'io.lettuce:lettuce-core:6.5.0.RC1'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
     implementation 'io.jsonwebtoken:jjwt:0.12.6'
 
     //implement file
-    implementation 'com.fit:CommonService:0.0.1-SNAPSHOT'
+//    implementation 'com.fit:CommonService:0.0.1-SNAPSHOT'
 
     //Paypal
     implementation 'com.paypal.sdk:rest-api-sdk:1.14.0'

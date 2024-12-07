@@ -1,5 +1,5 @@
-# Stage 1: Build ứng dụng
-FROM gradle:7-jdk17-alpine AS build
+# Stage 1: Build ứng dụng từ mã nguồn
+FROM gradle:8.11-jdk17-alpine AS build
 
 # Đặt thư mục làm việc cho stage build
 WORKDIR /app
@@ -13,11 +13,16 @@ RUN gradle clean build --no-daemon
 # Stage 2: Tạo image chạy ứng dụng
 FROM eclipse-temurin:17-jdk-alpine
 
-# Đặt thư mục làm việc cho container cuối cùng
+# Đặt thư mục làm việc cho ứng dụng
 WORKDIR /app
 
-# Copy file JAR từ stage build vào container
-COPY --from=build /app/build/libs/AuthService-0.0.1-SNAPSHOT.jar AuthService-0.0.1-SNAPSHOT.jar
+# Sao chép file JAR đã build từ stage trước vào container
+COPY --from=build /app/build/libs/AuthService-0.0.1-SNAPSHOT.jar /app/AuthService-0.0.1-SNAPSHOT.jar
 
 # Chạy ứng dụng
 ENTRYPOINT ["java", "-jar", "/app/AuthService-0.0.1-SNAPSHOT.jar"]
+
+
+#FROM eclipse-temurin:17-jdk-alpine
+#COPY build/libs/AuthService-0.0.1-SNAPSHOT.jar AuthService-0.0.1-SNAPSHOT.jar
+#ENTRYPOINT ["java","-jar","/AuthService-0.0.1-SNAPSHOT.jar"]

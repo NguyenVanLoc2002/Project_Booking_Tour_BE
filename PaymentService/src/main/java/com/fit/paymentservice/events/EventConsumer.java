@@ -1,6 +1,6 @@
 package com.fit.paymentservice.events;
 
-import com.fit.commonservice.utils.Constant;
+import com.fit.paymentservice.utils.Constant;
 import com.fit.paymentservice.dtos.response.BookingResponse;
 import com.fit.paymentservice.enums.StatusBooking;
 import com.fit.paymentservice.services.BookingService;

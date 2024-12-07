@@ -1,6 +1,6 @@
 package com.fit.userservice.controllers;
 
-import com.fit.commonservice.utils.CommonFunction;
+import com.fit.userservice.utils.CommonFunction;
 import com.fit.userservice.dtos.CustomerDTO;
 import com.fit.userservice.dtos.UpdateCustomerDTO;
 import com.fit.userservice.services.CustomerService;

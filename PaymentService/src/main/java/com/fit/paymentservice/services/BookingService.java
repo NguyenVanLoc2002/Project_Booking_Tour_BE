@@ -1,6 +1,6 @@
 package com.fit.paymentservice.services;
 
-import com.fit.commonservice.utils.Constant;
+import com.fit.paymentservice.utils.Constant;
 import com.fit.paymentservice.dtos.BookingDTO;
 import com.fit.paymentservice.dtos.request.BookingRequest;
 import com.fit.paymentservice.dtos.response.BookingResponse;

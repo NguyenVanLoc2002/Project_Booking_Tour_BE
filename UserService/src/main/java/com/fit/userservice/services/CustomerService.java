@@ -1,6 +1,6 @@
 package com.fit.userservice.services;
 
-import com.fit.commonservice.utils.Constant;
+import com.fit.userservice.utils.Constant;
 import com.fit.userservice.dtos.CustomerDTO;
 import com.fit.userservice.dtos.UpdateCustomerDTO;
 import com.fit.userservice.event.EventProducer;

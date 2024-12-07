@@ -1,4 +1,4 @@
-version: '3'
+
 services:
   zipkin:
     image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
@@ -111,10 +111,10 @@ services:
     env_file:
       - Environments/apigateway.env
     restart: on-failure
-    depends_on:
-      - zipkin
-      - config-server
-      - discovery-server
+#    depends_on:
+#      - zipkin
+#      - config-server
+#      - discovery-server
     networks:
       - gateway
 
@@ -137,7 +137,6 @@ services:
     restart: always
     depends_on:
       - zipkin
-      - config-server
       - discovery-server
       - api_gateway
       - kafka
@@ -162,7 +161,6 @@ services:
     restart: always
     depends_on:
       - zipkin
-      - config-server
       - discovery-server
       - api_gateway
       - kafka
@@ -187,7 +185,6 @@ services:
     restart: always
     depends_on:
       - zipkin
-      - config-server
       - discovery-server
       - api_gateway
       - kafka
@@ -212,7 +209,6 @@ services:
     restart: always
     depends_on:
       - zipkin
-      - config-server
       - discovery-server
       - api_gateway
     networks:
@@ -236,7 +232,6 @@ services:
     restart: always
     depends_on:
       - zipkin
-      - config-server
       - discovery-server
       - api_gateway
       - kafka
@@ -261,7 +256,6 @@ services:
     restart: always
     depends_on:
       - zipkin
-      - config-server
       - discovery-server
       - api_gateway
       - kafka

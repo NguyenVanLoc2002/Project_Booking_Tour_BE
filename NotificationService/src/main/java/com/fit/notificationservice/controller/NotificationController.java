@@ -1,6 +1,6 @@
 package com.fit.notificationservice.controller;
 
-import com.fit.commonservice.utils.Constant;
+import com.fit.notificationservice.utils.Constant;
 import com.fit.notificationservice.events.EventProducer;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Qualifier;

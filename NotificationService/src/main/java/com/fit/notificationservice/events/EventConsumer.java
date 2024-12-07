@@ -1,6 +1,6 @@
 package com.fit.notificationservice.events;
 
-import com.fit.commonservice.utils.Constant;
+import com.fit.notificationservice.utils.Constant;
 import com.fit.notificationservice.dtos.BookingDTO;
 import com.fit.notificationservice.dtos.reponse.CustomerResponse;
 import com.fit.notificationservice.service.EmailService;

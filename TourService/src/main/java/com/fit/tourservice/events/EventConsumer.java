@@ -1,15 +1,14 @@
 package com.fit.tourservice.events;
 
-import com.fit.commonservice.utils.Constant;
+import com.fit.tourservice.dtos.TourDTO;
 import com.fit.tourservice.dtos.request.BookingRequest;
 import com.fit.tourservice.dtos.request.TourFilterCriteriaRequest;
 import com.fit.tourservice.dtos.response.BookingResponse;
-import com.fit.tourservice.dtos.TourDTO;
 import com.fit.tourservice.enums.*;
-import com.fit.tourservice.repositories.r2dbc.TourRepository;
 import com.fit.tourservice.services.RedisService;
 import com.fit.tourservice.services.TourService;
 import com.fit.tourservice.services.TourTicketService;
+import com.fit.tourservice.utils.Constant;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;

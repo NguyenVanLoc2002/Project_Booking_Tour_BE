@@ -42,13 +42,11 @@ dependencies {
     implementation('org.apache.mahout:mahout-mr:0.13.0') {
         exclude group: 'org.slf4j', module: 'reload4j'
     }
-    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
     implementation 'io.lettuce:lettuce-core:6.5.0.RC1'
 
-    //implement file
-    implementation 'com.fit:CommonService:0.0.1-SNAPSHOT'
 
 
     testImplementation 'org.springframework.kafka:spring-kafka-test'

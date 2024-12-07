@@ -1,5 +1,5 @@
 # Stage 1: Build ứng dụng
-FROM gradle:7-jdk17-alpine AS build
+FROM gradle:8.11-jdk17-alpine AS build
 
 # Đặt thư mục làm việc cho stage build
 WORKDIR /app
