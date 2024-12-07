@@ -1,0 +1,75 @@
+name: Build and Deploy Docker Images
+
+on:
+  push:
+    branches:
+      - main 
+      
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+
+    - name: Build JAR files for all services
+      run: |
+        ./gradlew build  # Or mvn clean package if using Maven
+
+    - name: Upload .env files to EC2
+      run: |
+        scp -o StrictHostKeyChecking=no -i ${{ secrets.EC2_SSH_KEY }} ./Environments/*.env ec2-user@your-ec2-ip:/path/to/project/Environments/
+
+    - name: Upload docker-compose.yml to EC2
+      run: |
+        scp -o StrictHostKeyChecking=no -i ${{ secrets.EC2_SSH_KEY }} ./docker-compose.yml ec2-user@your-ec2-ip:/path/to/project/
+
+    - name: Log in to Docker Hub (if pushing to DockerHub)
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build Docker images for each service
+      run: |
+        # Build Docker images for each service
+        docker build -t yourusername/apigateway:${{ github.sha }} ./ApiGateway
+        docker build -t yourusername/authservice:${{ github.sha }} ./AuthService
+        docker build -t yourusername/tourservice:${{ github.sha }} ./TourService
+        docker build -t yourusername/paymentservice:${{ github.sha }} ./PaymentService
+
+        # Push Docker images to Docker Hub
+        docker push yourusername/apigateway:${{ github.sha }}
+        docker push yourusername/authservice:${{ github.sha }}
+        docker push yourusername/tourservice:${{ github.sha }}
+        docker push yourusername/paymentservice:${{ github.sha }}
+
+    - name: Deploy to EC2
+      run: |
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_SSH_KEY }} ec2-user@your-ec2-ip << EOF
+          # Ensure Docker is installed on EC2 if needed
+          # sudo yum install docker -y
+          # sudo systemctl start docker
+          # sudo systemctl enable docker
+
+          # Navigate to project directory and pull the latest code
+          cd /path/to/your/project
+          git pull origin main
+
+          # Ensure .env files and docker-compose.yml are in place
+          ls /path/to/your/project/Environments/
+          ls /path/to/your/project/docker-compose.yml
+
+          # Update and restart services with Docker Compose
+          docker-compose down
+          docker-compose up -d
+
+          # Optional: Restart Nginx to apply reverse proxy changes
+          sudo systemctl restart nginx
+        EOF
