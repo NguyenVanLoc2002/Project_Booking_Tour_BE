@@ -58,15 +58,15 @@ services:
     networks:
       - kafka-network
 
-  config-server:
-    build:
-      context: ConfigurationService
-      dockerfile: Dockerfile
-    container_name: config-server
-    image: config-server:1.0
-    restart: always
-    ports:
-      - "8888:8888"
+#  config-server:
+#    build:
+#      context: ConfigurationService
+#      dockerfile: Dockerfile
+#    container_name: config-server
+#    image: config-server:1.0
+#    restart: always
+#    ports:
+#      - "8888:8888"
 
 
   discovery-server:
@@ -135,11 +135,11 @@ services:
     env_file:
       - Environments/authentication.env
     restart: always
-    depends_on:
-      - zipkin
-      - discovery-server
-      - api_gateway
-      - kafka
+#    depends_on:
+#      - zipkin
+#      - discovery-server
+#      - api_gateway
+#      - kafka
     networks:
       - gateway
       - kafka-network
