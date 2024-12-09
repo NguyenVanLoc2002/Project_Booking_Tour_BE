@@ -52,7 +52,7 @@ public class EmailService {
                     htmlContent = htmlContent.replace("${tourId}", String.valueOf(bookingDTO.getTourId()));
                     htmlContent = htmlContent.replace("${bookingDate}", bookingDTO.getBookingDate().toString());
                     htmlContent = htmlContent.replace("${quantity}", String.valueOf(bookingDTO.getQuantity()));
-                    htmlContent = htmlContent.replace("${totalAmount}", String.format("%,.0f VND", bookingDTO.getTotalAmount()));
+                    htmlContent = htmlContent.replace("${totalAmount}", String.format("%,.0f VND", bookingDTO.getTotalAmount()*24000));
                     htmlContent = htmlContent.replace("${verificationLink}", createVerificationLinkBookingTour(bookingDTO));
 
                     // Tạo đối tượng Email và gửi

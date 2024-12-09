@@ -160,6 +160,7 @@ public class ContentBasedFilteringService {
         tourDTO.setIncludePromotions((Boolean) tourMap.get("includePromotions"));
         tourDTO.setDepartureDate( convertListToLocalDate((List<Integer>) tourMap.get("departureDate")));
         tourDTO.setAvailableSlot((Integer) tourMap.get("availableSlot"));
+        tourDTO.setTicketId(((Number) tourMap.get("ticketId")).longValue());
         // Cập nhật các thông tin liên quan đến tính năng tour nếu cần
         if (tourMap.get("tourFeatureDTO") instanceof Map<?, ?>) {
             Map<String, Object> featureMap = (Map<String, Object>) tourMap.get("tourFeatureDTO");

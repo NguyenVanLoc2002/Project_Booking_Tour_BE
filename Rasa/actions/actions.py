@@ -21,7 +21,6 @@ class ActionShowNorthernTours(Action):
 
         # URL của TourService qua API Gateway
         tour_service_url = "http://api_gateway:8000/api/v1/tours/region?region=NORTH&page=1&size=4&isAscending=false"
-        base_tour_detail_url = "http://localhost:5173/detail"  # URL của trang chi tiết tour trên React app
 
         try:
             response = requests.get(tour_service_url)
@@ -38,7 +37,7 @@ class ActionShowNorthernTours(Action):
                     "buttons": [
                         {
                             "title": "Chi tiết Tour",  # Nút để nhấn vào chi tiết tour
-                            "payload": f"{base_tour_detail_url}?ticketId={tour['ticketId']}"  # Liên kết khi click
+                            "payload": f"{tour['ticketId']}"  # Liên kết khi click
                         }
                     ]
                 }
@@ -68,7 +67,6 @@ class ActionShowCentralTours(Action):
 
         # URL của TourService qua API Gateway
         tour_service_url = "http://api_gateway:8000/api/v1/tours/region?region=CENTRAL&page=1&size=4&isAscending=false"
-        base_tour_detail_url = "http://localhost:5173/detail"  # URL của trang chi tiết tour trên React app
 
         try:
             response = requests.get(tour_service_url)
@@ -85,7 +83,7 @@ class ActionShowCentralTours(Action):
                     "buttons": [
                         {
                             "title": "Chi tiết Tour",  # Nút để nhấn vào chi tiết tour
-                            "payload": f"{base_tour_detail_url}?ticketId={tour['ticketId']}"  # Liên kết khi click
+                            "payload": f"{tour['ticketId']}"    # Liên kết khi click
                         }
                     ]
                 }
@@ -115,7 +113,6 @@ class ActionShowSouthTours(Action):
 
         # URL của TourService qua API Gateway
         tour_service_url = "http://api_gateway:8000/api/v1/tours/region?region=NORTH&page=1&size=4&isAscending=false"
-        base_tour_detail_url = "http://localhost:5173/detail"  # URL của trang chi tiết tour trên React app
 
         try:
             response = requests.get(tour_service_url)
@@ -132,8 +129,7 @@ class ActionShowSouthTours(Action):
                     "buttons": [
                         {
                             "title": "Chi tiết Tour",  # Nút để nhấn vào chi tiết tour
-                            "payload": f"{base_tour_detail_url}?ticketId={tour['ticketId']}"  # Liên kết khi click
-                        }
+                            "payload": f"{tour['ticketId']}"                          }
                     ]
                 }
                 for tour in tours

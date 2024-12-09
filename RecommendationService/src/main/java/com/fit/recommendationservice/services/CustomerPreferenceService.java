@@ -38,7 +38,7 @@ public class CustomerPreferenceService {
                 .defaultIfEmpty(Region.NORTH.name()); // Gán giá trị mặc định là NORTH (tên enum)
 
         Mono<String> popularAccommodationString = preferencesRepository.findPopularAccommodationQuality(customerId)
-                .defaultIfEmpty(AccommodationQuality.FIVE_STAR_HOTEL.name()); // Gán giá trị mặc định là FIVE_STAR_HOTEL (tên enum)
+                .defaultIfEmpty(AccommodationQuality.RESORT.name()); // Gán giá trị mặc định là FIVE_STAR_HOTEL (tên enum)
 
         Mono<String> popularTransportationString = preferencesRepository.findPopularTransportationMode(customerId)
                 .defaultIfEmpty(TransportationMode.AIRPLANE.name()); // Gán giá trị mặc định là AIRPLANE (tên enum)

@@ -23,6 +23,7 @@ public class TourDTO {
     private boolean includePromotions;
     private TourFeatureDTO tourFeatureDTO;
     private LocalDate departureDate;
+    private Long ticketId;
     private int availableSlot;
     private double recommendationScore;
 }

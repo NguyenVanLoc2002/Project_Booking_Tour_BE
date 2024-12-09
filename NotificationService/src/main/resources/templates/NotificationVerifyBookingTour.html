@@ -12,6 +12,7 @@
             margin: 0;
             padding: 0;
         }
+
         .container {
             width: 100%;
             max-width: 600px;
@@ -21,22 +22,26 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             font-size: 24px;
             color: #333333;
             text-align: center;
         }
+
         p {
             font-size: 16px;
             color: #555555;
             line-height: 1.5;
         }
+
         .info {
             background-color: #f9f9f9;
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 20px;
         }
+
         a {
             display: inline-block;
             text-decoration: none;
@@ -47,12 +52,14 @@
             border-radius: 5px;
             text-align: center;
         }
+
         .note {
             font-size: 14px;
             color: #d9534f;
             margin-top: 20px;
             text-align: center;
         }
+
         .button {
             display: inline-block;
             text-decoration: none;
@@ -73,7 +80,8 @@
 <div class="container">
     <h1>Xác nhận đặt tour</h1>
     <p>Xin chào ${username},</p>
-    <p>Chúng tôi đã nhận được yêu cầu đặt tour của bạn. Vui lòng kiểm tra thông tin bên dưới và nhấn vào nút "Xác nhận" để hoàn tất quá trình đặt tour và thanh toán.</p>
+    <p>Chúng tôi đã nhận được yêu cầu đặt tour của bạn. Vui lòng kiểm tra thông tin bên dưới và nhấn vào nút "Xác nhận"
+        để hoàn tất quá trình đặt tour và thanh toán.</p>
     <div class="info">
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Số điện thoại:</strong> ${phoneNumber}</p>
@@ -83,8 +91,10 @@
         <p><strong>Số lượng vé:</strong> ${quantity}</p>
         <p><strong>Tổng tiền:</strong> ${totalAmount}</p>
     </div>
-    <a class="button" href="${verificationLink}&redirectUrl=http://localhost:5173/payment" target="_self">Xác nhận</a>
-    <p class="note">Lưu ý: Nếu không xác nhận và thực hiện thanh toán, thông tin đặt tour này sẽ bị hủy trong vòng 1 ngày kể từ thời điểm đặt tour.</p>
+    <a class="button" href="${verificationLink}&redirectUrl=https://travel-7cgt.onrender.com/payment" target="_self">Xác
+        nhận</a>
+    <p class="note">Lưu ý: Nếu không xác nhận và thực hiện thanh toán, thông tin đặt tour này sẽ bị hủy trong vòng 1
+        ngày kể từ thời điểm đặt tour.</p>
     <p>Trân trọng,<br>Đội ngũ Travel VietNam</p>
 </div>
 </body>

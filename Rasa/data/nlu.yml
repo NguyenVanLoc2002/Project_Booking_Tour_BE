@@ -64,6 +64,6 @@ nlu:
 
   - intent: ask_booking_status
     examples: |
-    - Tôi đã đặt tour rồi, làm sao để kiểm tra tình trạng?
-    - Bạn có thể cập nhật thông tin về tour đã đặt không?
+      - Bạn có thể cập nhật thông tin về tour đã đặt không?
+      - Tôi đã đặt tour rồi, làm sao để kiểm tra tình trạng?
 
