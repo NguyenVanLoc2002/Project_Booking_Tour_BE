@@ -6,43 +6,23 @@ on:
       - main  # Chạy khi có push lên nhánh main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: self-hosted
 
     steps:
       # Bước 1: Clone mã nguồn từ repository
       - name: Checkout source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Bước 2: Thiết lập SSH để kết nối EC2
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          # Thêm public key của EC2 vào danh sách các host tin cậy
-          ssh-keyscan -H 54.255.198.153 >> ~/.ssh/known_hosts
+        # 2. Tạo thư mục cố định và sao chép mã nguồn vào đó
+      - name: Check current directory
+        run: pwd        
 
-      # Bước 3: Sao chép các thư mục dịch vụ lên EC2
-      - name: Copy services to EC2
-        run: |
-          scp -o StrictHostKeyChecking=no -r -i ~/.ssh/id_rsa * ubuntu@54.255.198.153:/home/ubuntu/
+      # Bước 5: SSH vào EC2 và chạy Docker Compose
+      # - name: Run docker-compose
+      #   run: |
+      #     cd /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE
+      #     docker-compose down
+      #     docker-compose up -d
+          
 
-      # Bước 4: Liệt kê các file trong /home/ubuntu/
-      - name: List files in /home/ubuntu/
-        run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@54.255.198.153 "ls -alh /home/ubuntu/"
-
-      # Bước 5: Liệt kê các file trong /home/ubuntu/DiscoveryService/
-      - name: List files in /home/ubuntu/DiscoveryService/
-        run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@54.255.198.153 "ls -alh /home/ubuntu/DiscoveryService/"
-
-      # Bước 6: SSH vào EC2 và chạy Docker Compose
-      - name: Deploy services
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@54.255.198.153 << 'EOF'
-          cd /home/ubuntu/
-          docker-compose down
-          docker-compose up -d
-          EOF
