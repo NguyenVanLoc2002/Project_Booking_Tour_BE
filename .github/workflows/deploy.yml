@@ -29,9 +29,9 @@ jobs:
           ls -al /home/ubuntu/actions-runner/my_project
 
       # Bước 5: SSH vào EC2 và chạy Docker Compose
-      # - name: Deploy services
-      #   run: |
-      #     # cd /home/ubuntu/
-      #     docker-compose down
-      #     docker-compose up -d
-      #     EOF
+      - name: Deploy services
+        run: |
+          cd /home/ubuntu/actions-runner/my_project
+          docker-compose down
+          docker-compose up -d
+          EOF
