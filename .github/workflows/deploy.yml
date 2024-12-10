@@ -14,21 +14,16 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-       # Bước 2: Kiểm tra đường dẫn thư mục hiện tại
-      - name: Print current directory
+        # 2. Tạo thư mục cố định và sao chép mã nguồn vào đó
+      - name: Copy code to actions-runner folder
         run: |
-          echo "Current directory:"
-          pwd
+          mkdir -p /home/ubuntu/actions-runner/my_project
+          cp -r $GITHUB_WORKSPACE/* /home/ubuntu/actions-runner/my_project/
 
-      - name: Copy code to EC2
+      # 3. Xác minh mã nguồn đã được sao chép
+      - name: Verify copied code
         run: |
-          scp -r /home/runner/work/Project_Booking_Tour_BE/Project_Booking_Tour_BE ubuntu@47.128.230.99:/home/ubuntu/Travel_Project 
-
-      # Bước 3: Kiểm tra cấu trúc thư mục
-      - name: List files to check where the source code is located
-        run: |
-          echo "Listing files in the current directory:"
-          ls -la
+          ls -al /home/ubuntu/actions-runner/my_project
 
       # Bước 5: SSH vào EC2 và chạy Docker Compose
       # - name: Deploy services
