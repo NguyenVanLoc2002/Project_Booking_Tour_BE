@@ -18,7 +18,7 @@ jobs:
       - name: Check current directory
         run: pwd        
 
-      # Bước 3: Build mới và chạy Docker Compose
+      # Bước 3: Build mới và chạy lại Docker Compose
       - name: Run docker-compose
         run: |
           cd /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE
