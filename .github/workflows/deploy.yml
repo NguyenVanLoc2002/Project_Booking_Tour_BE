@@ -19,10 +19,10 @@ jobs:
         run: pwd        
 
       # Bước 5: SSH vào EC2 và chạy Docker Compose
-      # - name: Run docker-compose
-      #   run: |
-      #     cd /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE
-      #     docker-compose down
-      #     docker-compose up -d
+      - name: Run docker-compose
+        run: |
+          cd /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE
+          docker-compose down
+          docker-compose up -d
           
 
