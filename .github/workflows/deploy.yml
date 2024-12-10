@@ -14,10 +14,10 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
 
-      # Bước 5: SSH vào EC2 và chạy Docker Compose
-      - name: Deploy services
-        run: |
-          # cd /home/ubuntu/
-          docker-compose down
-          docker-compose up -d
-          EOF
+      # # Bước 5: SSH vào EC2 và chạy Docker Compose
+      # - name: Deploy services
+      #   run: |
+      #     # cd /home/ubuntu/
+      #     docker-compose down
+      #     docker-compose up -d
+      #     EOF
