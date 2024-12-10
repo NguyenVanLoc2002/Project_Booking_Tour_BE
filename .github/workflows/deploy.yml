@@ -18,11 +18,17 @@ jobs:
       - name: Check current directory
         run: pwd        
 
-      # Bước 5: SSH vào EC2 và chạy Docker Compose
-      # - name: Run docker-compose
-      #   run: |
-      #     cd /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE
-      #     docker-compose down
-      #     docker-compose up -d
+      # Bước 3: Build mới và chạy Docker Compose
+      - name: Run docker-compose
+        run: |
+          cd /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE
+          # Build lại các container với image mới
+          docker-compose build
+          
+          # Dừng và xóa các container cũ
+          docker-compose down
+          
+          # Khởi động lại container với image mới
+          docker-compose up -d
           
 
