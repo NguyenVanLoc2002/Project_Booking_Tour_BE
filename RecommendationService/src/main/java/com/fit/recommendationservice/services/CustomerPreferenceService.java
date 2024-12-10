@@ -22,42 +22,25 @@ public class CustomerPreferenceService {
     private CustomerPreferencesRepository preferencesRepository;
 
     public Mono<TourFilterCriteriaRequest> getCommonPreferences(Long customerId) {
-        Mono<Double> priceLatest = preferencesRepository.findLatestPrice(customerId)
-                .defaultIfEmpty(0.0); // Gán giá trị mặc định nếu không có giá trị
-
-        Mono<Integer> maxDurationLatest = preferencesRepository.findLatestDuration(customerId)
-                .defaultIfEmpty(0); // Gán giá trị mặc định nếu không có giá trị
-
-        Mono<String> popularDepartureLocation = preferencesRepository.findPopularDepartureLocation(customerId)
-                .defaultIfEmpty("Hồ Chí Minh");
-
-        Mono<String> popularTypeTourString = preferencesRepository.findPopularTypeTour(customerId)
-                .defaultIfEmpty(TypeTour.RESORT.name()); // Gán giá trị mặc định là RESORT (tên enum)
-
-        Mono<String> popularRegionString = preferencesRepository.findPopularRegion(customerId)
-                .defaultIfEmpty(Region.NORTH.name()); // Gán giá trị mặc định là NORTH (tên enum)
-
-        Mono<String> popularAccommodationString = preferencesRepository.findPopularAccommodationQuality(customerId)
-                .defaultIfEmpty(AccommodationQuality.RESORT.name()); // Gán giá trị mặc định là FIVE_STAR_HOTEL (tên enum)
-
-        Mono<String> popularTransportationString = preferencesRepository.findPopularTransportationMode(customerId)
-                .defaultIfEmpty(TransportationMode.AIRPLANE.name()); // Gán giá trị mặc định là AIRPLANE (tên enum)
-
-        return Mono.zip(priceLatest, maxDurationLatest, popularDepartureLocation,
-                        popularTypeTourString, popularRegionString, popularAccommodationString, popularTransportationString)
-                .flatMap(tuple -> {
-                    // Chuyển đổi từ String sang Enum ngay trong flatMap
-                    return Mono.just(new TourFilterCriteriaRequest(
-                            tuple.getT1(), // maxCost
-                            LocalDate.now(), // startDate
-                            tuple.getT2(), // maxDuration
-                            tuple.getT3(), // departureLocation
-                            TypeTour.valueOf(tuple.getT4()), // typeTour
-                            AccommodationQuality.valueOf(tuple.getT6()), // accommodationQuality
-                            Region.valueOf(tuple.getT5()), // region
-                            TransportationMode.valueOf(tuple.getT7()) // transportationMode
-                    ));
-                });
+        return Mono.zip(
+                        preferencesRepository.findLatestPrice(customerId).defaultIfEmpty(0.0),
+                        preferencesRepository.findLatestDuration(customerId).defaultIfEmpty(0),
+                        preferencesRepository.findPopularDepartureLocation(customerId).defaultIfEmpty(""),
+                        preferencesRepository.findPopularTypeTour(customerId).defaultIfEmpty(""),
+                        preferencesRepository.findPopularAccommodationQuality(customerId).defaultIfEmpty(""),
+                        preferencesRepository.findPopularRegion(customerId).defaultIfEmpty(""),
+                        preferencesRepository.findPopularTransportationMode(customerId).defaultIfEmpty("")
+                )
+                .map(tuple -> new TourFilterCriteriaRequest(
+                        tuple.getT1() , // maxCost
+                        LocalDate.now(), // startDate
+                        tuple.getT2(), // maxDuration
+                        !tuple.getT3().isEmpty() ? tuple.getT3() : null,// departureLocation
+                        tuple.getT4() != null && !tuple.getT4().isEmpty() ? TypeTour.valueOf(tuple.getT4()) : null, // typeTour
+                        tuple.getT5() != null && !tuple.getT5().isEmpty() ? AccommodationQuality.valueOf(tuple.getT5()) : null, // accommodationQuality
+                        tuple.getT6() != null && !tuple.getT6().isEmpty() ? Region.valueOf(tuple.getT6()) : null, // region
+                        tuple.getT7() != null && !tuple.getT7().isEmpty() ? TransportationMode.valueOf(tuple.getT7()) : null // transportationMode
+                ));
     }
 
     public Mono<CustomerPreferencesDTO> createCustomerPreference(CustomerPreferencesRequest customerPreferencesRequest) {

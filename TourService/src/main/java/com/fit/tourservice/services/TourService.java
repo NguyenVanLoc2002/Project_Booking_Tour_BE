@@ -235,8 +235,8 @@ public class TourService {
 
     private Flux<TourDTO> fetchTours(TourFilterCriteriaRequest criteria, int size, int offset) {
         return tourRepository.findToursByCriteria(
-                        criteria.getMaxCost(),
-                        criteria.getMaxDuration(),
+                        criteria.getMaxCost() != null ? criteria.getMaxCost() : 0,
+                        criteria.getMaxDuration() != null ? criteria.getMaxDuration() : 0,
                         criteria.getDepartureLocation(),
                         criteria.getStartDate(),
                         criteria.getTypeTour(),

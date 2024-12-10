@@ -58,15 +58,15 @@ services:
     networks:
       - kafka-network
 
-  config-server:
-    build:
-      context: ConfigurationService
-      dockerfile: Dockerfile
-    container_name: config-server
-    image: config-server:1.0
-    restart: always
-    ports:
-      - "8888:8888"
+#  config-server:
+#    build:
+#      context: ConfigurationService
+#      dockerfile: Dockerfile
+#    container_name: config-server
+#    image: config-server:1.0
+#    restart: always
+#    ports:
+#      - "8888:8888"
 
 
   discovery-server:
