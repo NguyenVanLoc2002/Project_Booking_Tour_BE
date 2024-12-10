@@ -6,8 +6,8 @@ on:
       - main  # Chạy khi có push lên nhánh main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: self-hosted
 
     steps:
       # Bước 1: Clone mã nguồn từ repository
