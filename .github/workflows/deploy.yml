@@ -21,27 +21,22 @@ jobs:
           echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           # Thêm public key của EC2 vào danh sách các host tin cậy
-          ssh-keyscan -H 54.255.198.153 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 47.128.230.99 >> ~/.ssh/known_hosts
 
       # Bước 3: Sao chép các thư mục dịch vụ lên EC2
       - name: Copy services to EC2
         run: |
-          scp -o StrictHostKeyChecking=no -r -i ~/.ssh/id_rsa * ubuntu@54.255.198.153:/home/ubuntu/
+          scp -o StrictHostKeyChecking=no -r -i ~/.ssh/id_rsa * ubuntu@47.128.230.99:/home/ubuntu/
 
       # Bước 4: Liệt kê các file trong /home/ubuntu/
       - name: List files in /home/ubuntu/
         run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@54.255.198.153 "ls -alh /home/ubuntu/"
+          ssh -i ~/.ssh/id_rsa ubuntu@47.128.230.99 "ls -alh /home/ubuntu/"
 
-      # Bước 5: Liệt kê các file trong /home/ubuntu/DiscoveryService/
-      - name: List files in /home/ubuntu/DiscoveryService/
-        run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@54.255.198.153 "ls -alh /home/ubuntu/DiscoveryService/"
-
-      # Bước 6: SSH vào EC2 và chạy Docker Compose
+      # Bước 5: SSH vào EC2 và chạy Docker Compose
       - name: Deploy services
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@54.255.198.153 << 'EOF'
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@47.128.230.99 << 'EOF'
           cd /home/ubuntu/
           docker-compose down
           docker-compose up -d
