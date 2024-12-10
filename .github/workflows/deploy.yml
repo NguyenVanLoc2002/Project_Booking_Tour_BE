@@ -28,7 +28,17 @@ jobs:
         run: |
           scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa docker-compose.yml ubuntu@54.255.198.153:/home/ubuntu/
 
-      # Bước 4: SSH vào EC2 và chạy Docker Compose
+      # Bước 4: Liệt kê các file trong /home/ubuntu/
+      - name: List files in /home/ubuntu/
+        run: |
+          ssh -i ~/.ssh/id_rsa ubuntu@54.255.198.153 "ls -alh /home/ubuntu/"
+
+      # Bước 5: Liệt kê các file trong /home/ubuntu/DiscoveryService/
+      - name: List files in /home/ubuntu/DiscoveryService/
+        run: |
+          ssh -i ~/.ssh/id_rsa ubuntu@54.255.198.153 "ls -alh /home/ubuntu/DiscoveryService/"
+
+      # Bước 6: SSH vào EC2 và chạy Docker Compose
       - name: Deploy services
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@54.255.198.153 << 'EOF'
