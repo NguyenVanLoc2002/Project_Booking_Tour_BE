@@ -109,12 +109,12 @@ public class EmailService {
 
     public String createVerificationLinkBookingTour(BookingDTO bookingDTO) {
         String token = jwtUtils.generateBookingToken(bookingDTO);
-        return "http://localhost:8000/api/v1/booking/verify-booking-tour?bookingId=" + token;
+        return "https://travelvietnam.io.vn:8000/api/v1/booking/verify-booking-tour?bookingId=" + token;
     }
 
     public String createVerificationLinkAccount(CustomerResponse customerResponse) {
         String token = jwtUtils.generateTokenAuth(customerResponse);
         log.info("token: {}", token);
-        return "http://localhost:8000/api/v1/auth/verify-account?token=" + token;
+        return "https://travelvietnam.io.vn:8000/api/v1/auth/verify-account?token=" + token;
     }
 }
