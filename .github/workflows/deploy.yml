@@ -26,7 +26,7 @@ jobs:
           echo "Listing files in the current directory:"
           ls -la
 
-      # # Bước 5: SSH vào EC2 và chạy Docker Compose
+      # Bước 5: SSH vào EC2 và chạy Docker Compose
       # - name: Deploy services
       #   run: |
       #     # cd /home/ubuntu/
