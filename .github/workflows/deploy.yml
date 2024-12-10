@@ -15,10 +15,13 @@ jobs:
         uses: actions/checkout@v4
 
         # 2. Tạo thư mục cố định và sao chép mã nguồn vào đó
+      - name: Create project directory
+        run: |
+          sudo mkdir -p /home/ubuntu/actions-runner/my_project
+      
       - name: Copy code to actions-runner folder
         run: |
-          mkdir -p /home/ubuntu/actions-runner/my_project
-          cp -r $GITHUB_WORKSPACE/* /home/ubuntu/actions-runner/my_project/
+          sudo cp -r $GITHUB_WORKSPACE/* /home/ubuntu/actions-runner/my_project/
 
       # 3. Xác minh mã nguồn đã được sao chép
       - name: Verify copied code
