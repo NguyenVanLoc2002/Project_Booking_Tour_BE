@@ -29,17 +29,13 @@ jobs:
           ls -al /home/ubuntu/actions-runner/my_project
 
       # Bước 5: SSH vào EC2 và chạy Docker Compose
-      - name: Deploy services to EC2
+      - name: SSH to EC2 and run docker-compose
         uses: appleboy/ssh-action@v0.1.0
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Di chuyển tới thư mục chứa mã nguồn
             cd /home/ubuntu/actions-runner/my_project
-
-            # Chạy docker-compose
             docker-compose down
             docker-compose up -d
-            EOF
