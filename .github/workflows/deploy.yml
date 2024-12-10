@@ -14,11 +14,15 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
 
-      # Bước 2: Kiểm tra cấu trúc thư mục
-      - name: List files to check where the source code is located
+       # Bước 2: Kiểm tra đường dẫn thư mục hiện tại
+      - name: Print current directory
         run: |
           echo "Current directory:"
           pwd
+
+      # Bước 3: Kiểm tra cấu trúc thư mục
+      - name: List files to check where the source code is located
+        run: |
           echo "Listing files in the current directory:"
           ls -la
 
