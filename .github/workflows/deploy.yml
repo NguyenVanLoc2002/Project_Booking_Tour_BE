@@ -14,6 +14,14 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
 
+      # Bước 2: Kiểm tra cấu trúc thư mục
+      - name: List files to check where the source code is located
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Listing files in the current directory:"
+          ls -la
+
       # # Bước 5: SSH vào EC2 và chạy Docker Compose
       # - name: Deploy services
       #   run: |
