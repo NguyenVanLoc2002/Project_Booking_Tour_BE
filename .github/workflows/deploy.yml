@@ -12,7 +12,7 @@ jobs:
     steps:
       # Bước 1: Clone mã nguồn từ repository
       - name: Checkout source code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
        # Bước 2: Kiểm tra đường dẫn thư mục hiện tại
       - name: Print current directory
