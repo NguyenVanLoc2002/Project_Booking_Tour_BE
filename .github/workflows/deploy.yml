@@ -15,24 +15,14 @@ jobs:
         uses: actions/checkout@v4
 
         # 2. Tạo thư mục cố định và sao chép mã nguồn vào đó
-      - name: Create project directory
-        run: |
-          sudo mkdir -p /home/ubuntu/actions-runner/my_project
-      
-      - name: Copy code to actions-runner folder
-        run: |
-          sudo cp -r $GITHUB_WORKSPACE/* /home/ubuntu/actions-runner/my_project/
+      - name: Check current directory
+        run: pwd        
 
-      # 3. Xác minh mã nguồn đã được sao chép
-      - name: Verify copied code
-        run: |
-          ls -al /home/ubuntu/actions-runner/my_project
-
-      # Bước 5: SSH vào EC2 và chạy Docker Compose
-      - name: SSH to EC2 and run docker-compose
-        run: |
-          cd /home/ubuntu/actions-runner/my_project
-          docker-compose down
-          docker-compose up -d
+      # # Bước 5: SSH vào EC2 và chạy Docker Compose
+      # - name: SSH to EC2 and run docker-compose
+      #   run: |
+      #     cd /home/ubuntu/actions-runner/my_project
+      #     docker-compose down
+      #     docker-compose up -d
           
 
