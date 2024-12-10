@@ -20,6 +20,10 @@ jobs:
           echo "Current directory:"
           pwd
 
+      - name: Copy code to EC2
+        run: |
+          scp -r /home/runner/work/Project_Booking_Tour_BE/Project_Booking_Tour_BE ubuntu@47.128.230.99:/home/ubuntu/Travel_Project 
+
       # Bước 3: Kiểm tra cấu trúc thư mục
       - name: List files to check where the source code is located
         run: |
