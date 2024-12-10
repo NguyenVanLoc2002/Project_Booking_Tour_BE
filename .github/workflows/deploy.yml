@@ -23,10 +23,10 @@ jobs:
           # Thêm public key của EC2 vào danh sách các host tin cậy
           ssh-keyscan -H 54.255.198.153 >> ~/.ssh/known_hosts
 
-      # Bước 3: Copy toàn bộ mã nguồn lên EC2
-      - name: Copy files to EC2
+      # Bước 3: Sao chép các thư mục dịch vụ lên EC2
+      - name: Copy services to EC2
         run: |
-          scp -o StrictHostKeyChecking=no -r -i ~/.ssh/id_rsa . ubuntu@54.255.198.153:/home/ubuntu/
+          scp -o StrictHostKeyChecking=no -r -i ~/.ssh/id_rsa * ubuntu@54.255.198.153:/home/ubuntu/
 
       # Bước 4: Liệt kê các file trong /home/ubuntu/
       - name: List files in /home/ubuntu/
