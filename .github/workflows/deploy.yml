@@ -14,11 +14,11 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-        # 2. Tạo thư mục cố định và sao chép mã nguồn vào đó
+        # 2. Tạo thư mục cố định và sao chép mã nguồn 
       - name: Check current directory
         run: pwd        
 
-      # Bước 3: Build mới và chạy Docker Compose
+      # Bước 3: Build mới và chạy lại Docker Compose
       - name: Run docker-compose
         run: |
           cd /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE
