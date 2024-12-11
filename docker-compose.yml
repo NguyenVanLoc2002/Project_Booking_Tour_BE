@@ -272,7 +272,7 @@ services:
       - "5005:5005"  # Cổng cho API Rasa
     environment:
       - PYTHONUNBUFFERED=1  # Đảm bảo log được hiển thị ngay lập tức
-      - RASA_MODEL_SERVER=http://travelvietnam.io.vn:5002      # Ví dụ biến môi trường
+      - RASA_MODEL_SERVER=https://travelvietnam.io.vn     # Ví dụ biến môi trường
       - RUN_ACTION_SERVER=false
     volumes:
       - ./Rasa/data:/app/data  # Gắn kết thư mục chứa dữ liệu huấn luyện
