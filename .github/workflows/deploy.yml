@@ -22,15 +22,21 @@ jobs:
       - name: Fix permissions for redis-data
         run: |
           echo "Fixing permissions for redis-data directory..."
-          sudo chown -R ubuntu:ubuntu /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE/redis-data
+          sudo chown -R $USER:$USER /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE/redis-data
           sudo chmod -R 755 /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE/redis-data
+
 
       # Bước 4: Xác minh quyền truy cập
       - name: Verify redis-data permissions
         run: |
           ls -ld /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE/redis-data
       
-      # Bước 5: Dọn dẹp thư mục redis-data nếu cần
+     # Bước 5: Dừng container Redis trước khi xóa
+      - name: Stop Redis container
+        run: |
+          docker ps -q --filter "name=redis-container" | xargs -r docker stop
+      
+      # Dọn dẹp thư mục redis-data nếu cần
       - name: Clean redis-data directory
         run: |
           echo "Cleaning redis-data directory..."
