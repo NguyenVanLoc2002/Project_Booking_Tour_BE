@@ -15,6 +15,7 @@ import com.paypal.api.payments.Sale;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -28,6 +29,15 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class RefundService {
+
+    @Value("${paypal.client.id}")
+    private String clientId;
+
+    @Value("${paypal.client.secret}")
+    private String clientSecret;
+
+    @Value("${paypal.mode}")
+    private String mode;
 
     private final BookingRepository bookingRepository;
     private final RefundRepository refundRepository;
@@ -180,12 +190,20 @@ public class RefundService {
         return bookingRepository.save(booking).then();
     }
 
+    private APIContext createApiContext() {
+        return new APIContext(clientId, clientSecret, mode);
+    }
+
+
     private Mono<String> refundThroughPayPal(String transactionId, double amount) {
         return Mono.fromCallable(() -> {
             try {
-                log.info("Transaction ID: " +transactionId);
-                // Lấy payment từ PayPal
-                Sale sale = Sale.get(apiContext, transactionId);
+                log.info("Transaction ID: " + transactionId);
+
+                // Tạo APIContext mới
+                APIContext newApiContext = createApiContext();
+
+                Sale sale = Sale.get(newApiContext, transactionId);
 
                 // Tạo PayPal-Request-Id duy nhất cho mỗi yêu cầu hoàn tiền
                 String uniqueRequestId = UUID.randomUUID().toString();
@@ -196,15 +214,18 @@ public class RefundService {
                 Amount refundAmount = new Amount("USD", String.format("%.2f", amount)); // Giả sử đơn vị là USD
                 refundRequest.setAmount(refundAmount);
 
-                apiContext.addHTTPHeader("PayPal-Request-Id", uniqueRequestId);
-                log.info("Headers in apiContext: " + apiContext.getHTTPHeaders());
+                // Thêm header PayPal-Request-Id vào newApiContext
+                newApiContext.addHTTPHeader("PayPal-Request-Id", uniqueRequestId);
+                log.info("Headers in newApiContext: " + newApiContext.getHTTPHeaders());
+
                 // Thực hiện hoàn tiền
-                DetailedRefund detailedRefund = sale.refund(apiContext, refundRequest);
+                DetailedRefund detailedRefund = sale.refund(newApiContext, refundRequest);
                 return detailedRefund.getId(); // Trả về transaction ID
             } catch (PayPalRESTException e) {
                 throw new RuntimeException("Refund failed: " + e.getMessage());
             }
         });
     }
+
 }
 
