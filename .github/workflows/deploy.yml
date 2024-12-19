@@ -35,7 +35,7 @@ jobs:
         run: |
           docker volume prune -f
       
-      # Bước 7: Build mới và chạy lại Docker Compose
+      # Bước 6: Build mới và chạy lại Docker Compose
       - name: Run docker-compose
         run: |
           cd /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE
