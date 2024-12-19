@@ -14,27 +14,28 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-        # 2. Tạo thư mục cố định và sao chép mã nguồn 
-      - name: Check current directory
-        run: pwd        
-
-       # Bước 3: Sửa quyền truy cập thư mục redis-data
-      - name: Fix permissions for redis data
+        # Bước 2: Dừng tất cả container đang chạy
+      - name: Stop all running containers
         run: |
-          sudo chown -R ubuntu:ubuntu /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE/redis-data
+          docker ps -q | xargs -r docker stop
+
+      # Bước 3: Sửa quyền thư mục redis-data
+      - name: Fix permissions for redis-data
+        run: |
+          sudo chown -R $USER:$USER /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE/redis-data
           sudo chmod -R 755 /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE/redis-data
 
-      # Bước 4: Dọn dẹp thư mục redis-data nếu cần
+      # Bước 4: Dọn dẹp thư mục redis-data
       - name: Clean redis-data directory
         run: |
           sudo rm -rf /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE/redis-data
 
-      # Bước 5: Dọn dẹp các container Docker cũ và khởi động lại
+      # Bước 5: Dọn dẹp Docker volumes không sử dụng
       - name: Clean up Docker volumes
         run: |
-          docker volume prune -f  # Xóa tất cả các volume không còn được sử dụng, bao gồm redis-data
+          docker volume prune -f
       
-      # Bước 6: Build mới và chạy lại Docker Compose
+      # Bước 6: Build mới và chạy Docker Compose
       - name: Run docker-compose
         run: |
           cd /home/ubuntu/actions-runner/_work/Project_Booking_Tour_BE/Project_Booking_Tour_BE
