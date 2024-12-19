@@ -96,7 +96,6 @@ public class HybridRecommendationService {
 
 
     public double calculateCollaborativeScore(TourDTO tour) {
-        // Giả sử bạn có một cách lưu trữ các tương tác của người dùng, ví dụ:
         List<CustomerInteractionDTO> interactions = customerInteractionRepository.findByTourId(tour.getTourId())
                 .map(CustomerInteractionDTO::convertToDTO)
                 .collectList().block();
